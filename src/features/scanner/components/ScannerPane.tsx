@@ -4,7 +4,7 @@ import { FilterBar, type FiltersState } from './FilterBar';
 import { useScannerQuery } from '../hooks/useScannerQuery';
 import { useScannerStore } from '../../../store/scannerStore';
 import { wsAddHandler, wsRemoveHandler, wsSend } from '../../../ws/client';
-import type { GetScannerResultParams } from '../../../../../test-task-types';
+import type { GetScannerResultParams } from '../../../../test-task-types';
 
 const DEFAULTS = {
   trending: { rankBy: 'volume', orderBy: 'desc' as const },
@@ -139,9 +139,9 @@ export function ScannerPane({ kind }: { kind: 'trending' | 'fresh' }) {
         </div>
       </div>
 
-      <FilterBar 
-        value={filters} 
-        onChange={(v) => startTransition(() => setFilters(v))} 
+      <FilterBar
+        value={filters}
+        onChange={(v) => startTransition(() => setFilters(v))}
         onReset={() => startTransition(() => handleResetFilters())}
       />
 
@@ -153,8 +153,8 @@ export function ScannerPane({ kind }: { kind: 'trending' | 'fresh' }) {
           setPage((p) => p + 1);
         }
       }}>
-        <ScannerTable 
-          kind={kind} 
+        <ScannerTable
+          kind={kind}
           loading={isPending && pages.length === 0}
           isFetching={isFetching}
           onEndReached={() => setPage((p) => p + 1)}

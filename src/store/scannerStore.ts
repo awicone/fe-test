@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { SupportedChainName, ScannerResult, PairStatsMsgData, WsTokenSwap } from "../../../test-task-types.ts";
+import type { SupportedChainName, ScannerResult, PairStatsMsgData, WsTokenSwap } from "../../test-task-types.ts";
 import { resolveInitialMcap, parseNumber } from '../api/scanner';
 
 export type PairKey = `${SupportedChainName}:${string}`;

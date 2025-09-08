@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import type { GetScannerResultParams } from '../../../../../test-task-types';
+import type { GetScannerResultParams } from '../../../../test-task-types';
 import { getScanner } from '../../../api/scanner';
 import { useScannerStore } from '../../../store/scannerStore';
 

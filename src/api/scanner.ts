@@ -1,5 +1,5 @@
 import { api } from './client';
-import type { ScannerApiResponse, GetScannerResultParams, ScannerResult} from "../../../test-task-types.ts";
+import type { ScannerApiResponse, GetScannerResultParams, ScannerResult} from "../../test-task-types.ts";
 
 export async function getScanner(params: GetScannerResultParams): Promise<ScannerApiResponse> {
   const searchParams = new URLSearchParams();
