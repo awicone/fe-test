@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  // Для GitHub Pages (project pages): https://awicone.github.io/fe-test/
+  // Указываем базовый путь, чтобы ссылки на ассеты были корректны
+  base: '/fe-test/',
   server: {
     proxy: {
       '/api': {
