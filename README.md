@@ -1,55 +1,10 @@
-## Cloudflare Pages (с CORS-прокси)
-
-1) Create new Pages project → Connect to Git → выберите этот репозиторий
-2) Build settings:
-   - Framework preset: Vite
-   - Build command: `npm run build:cf`
-   - Build output directory: `dist`
-   - Environment variables (Production):
-     - `VITE_API_BASE=/api` (оставляем относительный путь)
-3) Functions → включите Pages Functions (добавьте ./functions)
-4) Создайте файл `functions/api/[[path]].ts` (ниже пример). Он проксирует `https://api-rs.dexcelerate.com` и добавляет CORS.
-
-```ts
-export const onRequest: PagesFunction = async ({ request }) => {
-  const url = new URL(request.url);
-  const target = new URL(url.pathname.replace(/^\/api\//, ''), 'https://api-rs.dexcelerate.com/');
-
-  const corsOrigin = request.headers.get('Origin') || '*';
-  const isPreflight = request.method === 'OPTIONS';
-
-  if (isPreflight) {
-    return new Response(null, {
-      status: 204,
-      headers: {
-        'Access-Control-Allow-Origin': corsOrigin,
-        'Access-Control-Allow-Methods': 'GET,OPTIONS',
-        'Access-Control-Allow-Headers': '*',
-        'Access-Control-Max-Age': '86400',
-      },
-    });
-  }
-
-  const resp = await fetch(target.toString() + (url.search || ''), {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-    },
-  });
-
-  const res = new Response(resp.body, resp);
-  res.headers.set('Access-Control-Allow-Origin', corsOrigin);
-  res.headers.set('Access-Control-Allow-Credentials', 'false');
-  res.headers.set('Access-Control-Expose-Headers', '*');
-  return res;
-};
-```
-
 # Scanner Tables App (made with react + TS + vite)
 
 ## Overview
 
 Two side-by-side tables: Trending (sorted by volume) and New Tokens (sorted by age). Data comes from GET /scanner and real-time updates via WebSocket: tick, scanner-pairs, and pair-stats.
+
+Available on CF Pages: https://04bd35d8.fe-test-ebm.pages.dev/
 
 ## API/WS
 
